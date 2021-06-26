@@ -2,5 +2,5 @@ Thanks for Saturday commits to:
 blog controller, model, routes + serverjs updates 
 
 
-Sorry, I forgot credit Reginal in the commit!
+Sorry, I forgot to credit Reginald in the commit!
 
