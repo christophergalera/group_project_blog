@@ -12,7 +12,8 @@ app.use(cors());
 app.use(cookieParser());
  
 require('./config/mongoose.config');
- 
+
+require('./routes/blog.routes')(app);
 require('./routes/user.routes')(app);
 
 const server = app.listen(port, () => console.log("Your server is running for blog data!"));
@@ -24,4 +25,3 @@ const io = socketio(server, {
         allowedHeaders: [ '*' ],
     }
 });
-
