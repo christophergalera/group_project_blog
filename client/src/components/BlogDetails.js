@@ -37,6 +37,24 @@ const BlogDetails = (props) => {
 
 return(
     <div>
+        <h1>Post Details</h1>
+        <h3>Title: {post.blogName}</h3>
+        <p>Body: {post.blogBody}</p>
+
+        {/* may want a separate div here im not sure, button section */}
+
+        {/* button for edit */}
+        <button className="" 
+            onClick={() => navigate(`/blog/${post._id}/edit`)}>
+                Edit Post
+        </button>
+
+        {/* back to all blog posts button */}
+        <button className="">
+            <Link className="" to="/all_posts">
+                Return to all posts
+            </Link>
+            </button>
 
     </div>
 )
