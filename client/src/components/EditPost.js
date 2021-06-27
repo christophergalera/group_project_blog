@@ -51,12 +51,16 @@ return(
     <div>
         <h1>Edit Post</h1>
         <PostForm 
-    // passing from PostForm.js
-    
-
+        // passing down from the post form 
+            post = {post}
+            setPost = {setPost }
+            errors =  { errors }
+            // submit handler is sent to PostForm
+            submitHandler = { submitHandler }
+            buttonLabel = {'Update Post'} 
         />
-
     </div>
 )
-
 }
+
+export default EditPost;
