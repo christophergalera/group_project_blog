@@ -26,5 +26,23 @@ useEffect(() =>{
         });
 },[]);
 
+//submit event handler this calls from posts in routes file
+const submitHandler = (e) =>{
+    e.preventDefault();
+    // onClick submit to post this information saved in props.
+    // --props.id, post-- brings in props and our state variable above
+    axios.put('http://localhost:8000/api/posts/'+ props.id, post)
+        .then((res)=>{
+            console.log(res.data);
+            console.log("successfully updated")
+            // should redirect to .get in routes to display all based on specific post id. since posts are unique in id. 
+            navigate('/posts/' + props.id);
+        })
+        .catch((err)=> {
+            // shows objects in validations that failed 
+            console.log('error in axios call in submitHandler. located in NewPost.js', err.response.data.errors)
+            setErrors(err.response.data.errors);
+        })
+}
 
 }
