@@ -15,7 +15,10 @@ const submitHandler = (e) =>{
     e.preventDefault();
     // on submit to post this information using axios
     //i am leaving the end of the path blank in case anyone wa
-    axios.post('http://localhost:8000/blog', newPost)
+    axios.post('http://localhost:8000/blog', newPost, { 
+        withCredentials: true
+        }
+        )
     // has to return a promise
         .then((res)=>{
             console.log(res.data);

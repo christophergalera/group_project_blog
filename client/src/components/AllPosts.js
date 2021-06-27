@@ -19,7 +19,10 @@ const AllPosts = (props) => {
 // method for axios call/fetch getting all posts will want to pull this from a route
     const getAllPosts = () =>{
         // axios is allowing us to access our database 
-        axios.get('http://localhost:8000/api/blog')
+        axios.get('http://localhost:8000/api/blog',{ 
+            withCredentials: true
+            }
+            )
         // has to return a promise
             .then((res)=>{
                 console.log(res.data);
