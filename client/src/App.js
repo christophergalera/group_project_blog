@@ -4,7 +4,7 @@ import { Link, navigate } from '@reach/router';
 import AllPosts from './components/AllPosts';
 import NewPost from './components/NewPost';
 import Login from './components/Login';
-import RegisterUser from './components/register';
+import RegisterUser from './components/RegisterUser'; // change file name from register to RegisterUser to match filename [Jonas]
 import Forbidden from './views/Forbidden';
 import LoginReg from './views/LoginReg';
 

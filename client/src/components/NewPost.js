@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {navigate, Link} from '@reach/router';
-import PostForm from './PostForm';
+// import PostForm from './PostForm'; [Jonas] Waiting for PostForm to be finished
 
 // may or may not need props depending on what everyone wants to do
 const NewPost = () => {
@@ -35,14 +35,14 @@ const submitHandler = (e) =>{
         // classnames left blank intentionally
         <div className="">
             <h1 className="">Create a Post</h1>
-            <PostForm 
+            {/* <PostForm  
             // passing down from the post form 
                 post = {newPost}
                 setPost = {setNewPost }
                 errors =  { errors }
                 submitHandler = { submitHandler }
                 buttonLabel={"Add Post"}
-            />
+            /> */}
         </div>
     )
 }
