@@ -45,4 +45,18 @@ const submitHandler = (e) =>{
         })
 }
 
+// this is all passed down from props
+
+return(
+    <div>
+        <h1>Edit Post</h1>
+        <PostForm 
+    // passing from PostForm.js
+    
+
+        />
+
+    </div>
+)
+
 }
