@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+.login{
+  border:grey;
+  border-style:solid;
+  padding: 10px;
+}
+
+.register{
+  border:grey;
+  border-style:solid;
+  padding: 10px;
+}
