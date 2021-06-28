@@ -48,7 +48,7 @@ const {post, setPost, errors, submitHandler, buttonLabel } = props;
                 {/* submit btton*/}
                 <button>{ buttonLabel }</button>
                 {/* we have to use the anonymous function below to wait for the onclick event */}
-                <button onClick={ () => navigate("/")} className="cancelBtn">Cancel</button>
+                <button onClick={ () => navigate("/all_posts")} className="cancelBtn">Cancel</button>
             </form>
         </div>
     )
