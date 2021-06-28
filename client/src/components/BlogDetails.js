@@ -57,6 +57,5 @@ return(
             </button>
 
     </div>
-)
-
-}
+)}
+export default BlogDetails;
