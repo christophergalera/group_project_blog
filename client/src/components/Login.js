@@ -19,7 +19,7 @@ const Login = () => {
         )
         .then((res) => {
             console.log(res.data);
-            navigate("/");
+            navigate("/blog/all_posts");
         })
         .catch(err => {
             console.log(err.response);
