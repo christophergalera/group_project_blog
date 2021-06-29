@@ -8,7 +8,11 @@ const socketio = require('socket.io');
  
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:3000"
+}));
+
 app.use(cookieParser());
  
 require('./config/mongoose.config');
@@ -23,5 +27,20 @@ const io = socketio(server, {
         origin: 'http://localhost:3000',
         methods: [ 'GET', 'POST' ],
         allowedHeaders: [ '*' ],
+        credentials: true,
     }
+});
+
+io.on("connection", (socket) => {
+    socket.broadcast.emit('added_post', data);
+
+
+socket.on('added_post', (postId) => {
+        socket.broadcast.emit('added_post', postId)
+    });
+
+socket.on('deleted_post', (postId) => {
+    socket.broadcast.emit('added_post', postId)
+});
+
 });

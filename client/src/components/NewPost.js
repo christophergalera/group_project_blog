@@ -4,7 +4,7 @@ import {navigate, Link} from '@reach/router';
 import PostForm from './PostForm';
 
 // may or may not need props depending on what everyone wants to do
-const NewPost = () => {
+const NewPost = (props) => {
 const [errors, setErrors] = useState({}) // uses an object because thats what we are wroking with
 // below will be the json in our model
 const [newPost, setNewPost] = useState({
@@ -15,10 +15,9 @@ const submitHandler = (e) =>{
     e.preventDefault();
     // on submit to post this information using axios
     //i am leaving the end of the path blank in case anyone wa
-    axios.post('http://localhost:8000/blog', newPost, { 
+    axios.post('http://localhost:8000/api/blog', newPost, { 
         withCredentials: true
-        }
-        )
+        })
     // has to return a promise
         .then((res)=>{
             console.log(res.data);
