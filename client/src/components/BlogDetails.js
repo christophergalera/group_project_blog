@@ -2,20 +2,15 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {navigate, Link} from '@reach/router';
 
-
 // this page is ONLY NEEDED if you want to view the post or content in a different "page" it will display different from the home page and give access to options like delete and edit with the option to go back as well. 
 
 // props parameter passed
 const BlogDetails = (props) => {
     // setting state variables
-    // 6/29 added state for errors
     const[post, setPost] = useState({});
     /* getting blogposts and whatever is passed through props */
-    // added withcredentials true for loginreg
     useEffect(() => {
-        axios.get('http://localhost:8000/api/blog/' + props.post_id, {
-            withcredentials: true
-        })
+        axios.get('http://localhost:8000/api/blog/' + props.post_id)
         // returns a promise
             .then((res) => {
                 console.log(res.data);
@@ -24,7 +19,6 @@ const BlogDetails = (props) => {
             })
             .catch((err) =>{ 
                 console.log('In useEffect blogdetails.js ', err)
-                navigate('/login_register')
             });
     }, []);
 
