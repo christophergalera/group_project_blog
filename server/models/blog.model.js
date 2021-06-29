@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+ 
 const BlogSchema = new mongoose.Schema({
     // blog name
     blogName: {
@@ -9,12 +9,13 @@ const BlogSchema = new mongoose.Schema({
     // blog body
     blogBody: {
         type: String
-    }
-
+    },
+ 
     // createdBy: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'usertoken'
     // }
 }, {timestamps: true});
-
-module.exports = mongoose.model('blog', BlogSchema);
+ 
+const Blog = mongoose.model("Blog", BlogSchema);
+module.exports = Blog;
