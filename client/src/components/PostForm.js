@@ -33,7 +33,7 @@ const {post, setPost, errors, submitHandler, buttonLabel } = props;
                     }
                     <input type='text' name='blogName' value={post.blogName} onChange={(e) => inputChange(e)} />
                 </div>
-
+                    
                 <div>
                     <label>Blog Body </label>
                     

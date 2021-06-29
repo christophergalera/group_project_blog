@@ -5,6 +5,8 @@ import PostForm from './PostForm';
 
 // may or may not need props depending on what everyone wants to do
 const NewPost = (props) => {
+//for socket.io
+const [socket] = useState(()=> io(":8000"));
 const [errors, setErrors] = useState({}) // uses an object because thats what we are wroking with
 // below will be the json in our model
 const [newPost, setNewPost] = useState({
@@ -21,7 +23,7 @@ const submitHandler = (e) =>{
     // has to return a promise
         .then((res)=>{
             console.log(res.data);
-            navigate('/');
+            navigate('/all_posts');
         })
         //my console.logs will save your ass one day!:P
         .catch((err)=> {

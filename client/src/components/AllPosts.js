@@ -36,7 +36,54 @@ const AllPosts = (props) => {
             })
     }
 
-    // more code here if needed
+        // this is a socket for home page buttons
+    useEffect(() => {
+        console.log("socket.io useEffect")
+        socket.on("connect", () => { console.log("connected to socket");
+        console.log(socket.id);
+        });
+        // have to turn on websocket
+        socket.on("added", (data)=>{
+            console.log("added");
+            console.log(data);
+            setAllPosts((currentValue) => [data, ...currentValue]);
+        });
+        // allows for listening of the deleted id to delete without refresh
+        socket.on('deleted', (deletedPostId) => {
+            setAllPosts((currentAllPostValue) => {
+                let filteredArray = currentAllPostValue.filter((onePost) => {
+                    return onePost._id !== deletedPostId;
+                });
+                // new value to be set in state for posts
+                return filteredArray;
+            }); 
+        })
+        // IMPORTANT clean up, shutting down socket
+        return () => socket.disconnect();
+    }, []);
+    
+    // delet post function
+    const deletePost = (postId) =>{
+        //added credentials so user has to be logged in to delete
+        axios.delete('http://localhost:8000/api/blog/' + postId,{
+            withCredentials: true
+        })
+    
+        .then((res) =>{ 
+            console.log(res.data)
+            console.log("object deleted")
+            // sockit has to emit to be heard
+            socket.emit("delete_post", postId);
+            // our posts are saved into an array in state, filtering through the array
+            let filteredArray = allPosts.filter((onePost) => {
+                return onePost._id !== postId;
+            });
+            setAllPosts(filteredArray)
+        })
+        .catch((err) => {
+            console.log(err, "error in deletePost in AllPosts.js")
+        })
+    }
 
     return(
         //loops through posts using map
@@ -56,12 +103,15 @@ const AllPosts = (props) => {
             {
                 allPosts.map((post, index) => (
                     <div className="all" key={ index} >
-                    <Link to={`/blog/${post._id}`}>
-                        <h3>{ post.PARAMETERS_FROM_MODELS } <br/>
-                        {/* this will display the date added or updated depending on how you wire it */}
-                        <p>added on: { (new Date(post.PARAMETERS_FROM_MODELS)).toLocaleDateString("en-us")}</p> </h3>
-                    </Link>
+                        <Link to={`/blog/${post._id}`}>
+                            {post.blogName}
+                        </Link>
+                        <div>
+                            <button className="editButton" onClick={() => navigate(`/posts/${post._id}/edit`)}>Edit Post</button>
+                            <button className="deleteBtn" onClick={() => deletePost(post._id) }>Delete</button>
+                        </div>
                     </div>
+                    
                 ))
             }
         </div>
@@ -69,3 +119,9 @@ const AllPosts = (props) => {
 }
 
 export default AllPosts;
+
+// seemed like a better way to do that and implement the socket io connectivity
+
+// <h3>{ post.PARAMETERS_FROM_MODELS } <br/>
+//                         {/* this will display the date added or updated depending on how you wire it */}
+//                         <p>added on: { (new Date(post.PARAMETERS_FROM_MODELS)).toLocaleDateString("en-us")}</p> </h3>
