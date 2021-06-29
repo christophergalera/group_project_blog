@@ -1,4 +1,5 @@
 const Blog = require('../models/blog.model');
+const jwt = require('jsonwebtoken');
  
 module.exports = {
     showAllBlogs: (req, res) => {
@@ -9,7 +10,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("Error in showAllBlogs");
-                res.status(500).json(err);
+                res.status(400).json(err);
             })
     },
     
@@ -22,12 +23,16 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("Error in blogDetail");
-                res.status(500).json(err);
+                res.status(400).json(err);
             })
     },
- 
+  
     createBlog: (req, res) => {
-        console.log(req.body); 
+        console.log(req.body);
+
+        const blog = new Blog(req.body);
+        const decodedJwt = jwt.decode(req.cookies.undertoken, {complete: true})
+        
         Blog.create(req.body)
             .then((newBlog) => {
                 console.log("createBlog");
@@ -35,7 +40,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("Error in createBlog");
-                res.status(500).json(err);
+                res.status(400).json(err);
             })
     },
  
@@ -51,7 +56,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("Error in blogUpdate");
-                res.status(500).json(err);
+                res.status(400).json(err);
             })
  
     },
@@ -65,7 +70,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("Error in blogDelete");
-                res.status(500).json(err);
+                res.status(400).json(err);
             });
  
     }

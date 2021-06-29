@@ -37,10 +37,11 @@ module.exports = {
                 if(passwordValid) {
                     console.log("password is valid");
                     res
-                    .cookie("userdata", { username: userRecord.username })
+                    
+                    // .cookie("userdata", { username: userRecord.username })
                     .cookie("usertoken", 
                         jwt.sign({
-                            user_id: userRecord._id,
+                                _id: userRecord._id,
                             username: userRecord.username
                         }, process.env.JWT_SECRET),
                         {
@@ -50,8 +51,12 @@ module.exports = {
                         )
                     .json({
                         message: "Successfully logged in",
-                        userLoggedIn: userRecord.username,
-                        userId: userRecord._id,
+                        userLoggedIn: {
+                            username: userRecord.username
+                        }
+                        
+                        // userRecord.username,
+                        // userId: userRecord._id,
                     })
                 } else {
                     res.status(400).json({ message: "password didn't match"});
