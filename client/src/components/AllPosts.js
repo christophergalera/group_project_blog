@@ -17,9 +17,9 @@ const AllPosts = (props) => {
     const [allPosts, setAllPosts] = useState([]);
 
 // method for axios call/fetch getting all posts will want to pull this from a route
-    const getAllPosts = () =>{
+    const getAllPosts = (e) =>{
         // axios is allowing us to access our database 
-        axios.get('http://localhost:8000/api/blog',{ 
+        axios.get('http://localhost:8000/api/blog/all',{ 
             withCredentials: true
             }
             )
@@ -43,7 +43,7 @@ const AllPosts = (props) => {
             <h1 className=""> TITLE GOES HERE </h1>
 
         {/* button to get all posts using onClick events */}
-            <button className=" " onClick={ (e) => getAllPosts(e)}> TEXT_HERE </button>
+            <button className=" " onClick={ (e) => getAllPosts(e)}> Get Posts </button>
 
         {/* this will call from the routes to create a new post */}
             <Link to="" >
@@ -55,9 +55,9 @@ const AllPosts = (props) => {
                 allPosts.map((post, index) => (
                     <div className="all" key={ index} >
                     <Link to={`/blog/${post._id}`}>
-                        <h3>{ post.PARAMETERS_FROM_MODELS } <br/>
+                        <h3>{ post.blogBody } <br/>
                         {/* this will display the date added or updated depending on how you wire it */}
-                        <p>added on: { (new Date(post.PARAMETERS_FROM_MODELS)).toLocaleDateString("en-us")}</p> </h3>
+                        <p>added on: { (new Date(post.createdAt)).toLocaleDateString("en-us")}</p> </h3>
                     </Link>
                     </div>
                 ))
