@@ -8,13 +8,15 @@ Everything here is a proposal not really set in stone, routes were intentionally
 
 import React, {useState} from 'react';
 import axios from "axios";
-import {Link} from '@reach/router';
+import {Link, navigate} from '@reach/router';
+import io from 'socket.io-client';
 
 // props isnt explicitly used but  i passed it in just in case it'd to use it later
 const AllPosts = (props) => {
 
 // setting allPosts into state.
     const [allPosts, setAllPosts] = useState([]);
+    const [socket] = useState(() =>io(":8000"));
 
 // method for axios call/fetch getting all posts will want to pull this from a route
     const getAllPosts = () =>{
