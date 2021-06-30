@@ -51,7 +51,7 @@ return(
 
         {/* back to all blog posts button */}
         <button className="">
-            <Link className="" to="/all_posts">
+            <Link className="" to="/blog/all_posts">
                 Return to all posts
             </Link>
             </button>

@@ -36,7 +36,7 @@ const submitHandler = (e) =>{
             console.log(res.data);
             console.log("successfully updated")
             // should redirect to .get in routes to display all based on specific post id. since posts are unique in id. 
-            navigate('/posts/' + props.id);
+            navigate('/blog/' + props.id);
         })
         .catch((err)=> {
             // shows objects in validations that failed 

@@ -21,7 +21,7 @@ const submitHandler = (e) =>{
     // has to return a promise
         .then((res)=>{
             console.log(res.data);
-            navigate('/');
+            navigate('/blog/all_posts');
         })
         //my console.logs will save your ass one day!:P
         .catch((err)=> {

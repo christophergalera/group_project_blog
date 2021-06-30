@@ -17,9 +17,9 @@ function App() {
     id: ""
   });
   return (
-      <div>
+    <div>
       <Router>
-        <LoginReg path="/login_register" user={user} setUser={setUser}/>
+        <LoginReg default path="/login_register" user={user} setUser={setUser}/>
         <AllPosts path="/blog/all_posts" /> 
         <NewPost path="/blog/new_post" />
         <BlogDetails path='/blog/:post_id'/>

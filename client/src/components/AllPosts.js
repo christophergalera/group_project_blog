@@ -46,7 +46,7 @@ const AllPosts = (props) => {
             <button className=" " onClick={ (e) => getAllPosts(e)}> Get Posts </button>
 
         {/* this will call from the routes to create a new post */}
-            <Link to="" >
+            <Link to="/blog/new_post" >
                 <button className=""> ADD_POST_BUTON </button>
             </Link>
 
