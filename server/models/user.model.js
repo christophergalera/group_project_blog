@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
 
 
     UserSchema.pre("validate", function(next) {
-    if(this.password !== this.confirmPassword) {
+    if(this.password !== this._confirmPassword) {
         this.invalidate("confirmPassword", "Passwords do not match");
     }
     next();

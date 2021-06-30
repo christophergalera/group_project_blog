@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import 'bulma/css/bulma.min.css';
+import { Form, Icon, Button, Box } from 'react-bulma-components';
 import axios from "axios";
 import { navigate } from '@reach/router';
 
@@ -6,6 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const { Input, Field, Control, Label } = Form;
 
     const login = event => {
         event.preventDefault();
@@ -28,35 +31,67 @@ const Login = () => {
     };
 
     return (
-        <div>
-        <h2>Login</h2>
-        <p className="error-text">{errorMessage ? errorMessage : ""}</p>
+
+        <Box
+            style={{
+                width: 600,
+                margin: 'auto'
+            }}
+        >
+
+
         <form onSubmit={login}>
-            <div>
-            <label>Email</label>
-            <input
-                type="text"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            </div>
-            <div>
-            <label>Password</label>
-            <input 
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            </div>
-            <div className="center">
-            <button 
-                type="submit"
-            >Sign In</button>
-            </div>
+       
+        <Field >
+            <Label>Email</Label>
+                <Control>
+                    <Input
+                        type="text"
+                        name="email"
+                        value={email}
+                        placeholder="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Icon
+                    align="left" 
+                    >
+                        <ion-icon name="person-circle"></ion-icon>
+                    </Icon>
+                </Control>
+        </Field >
+
+        <Field>
+            <Label>Password</Label>
+                <Control>
+                    <Input 
+                    type="password"
+                    name="password"
+                    value={password}
+                    placeholder="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Icon align="left">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    </Icon>
+                </Control>
+
+                
+            
+        </Field>
+        <Button.Group>
+            <Button 
+            color="success" 
+            type="submit"
+            onClick={login}
+            >Login</Button>
+            </Button.Group>
+            
+    
         </form>
-        </div>
+
+        </Box>
+
+
     );
 };
 

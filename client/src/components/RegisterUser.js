@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import 'bulma/css/bulma.min.css';
+import { Form, Icon, Button, Box } from 'react-bulma-components';
 import axios from "axios";
 
 const Register = props => {
+    const { Input, Field, Control, Label } = Form;
     const [confirmReg, setConfirmReg] = useState("");
     const [errs, setErrs] = useState({});
 
@@ -48,77 +51,196 @@ const Register = props => {
         };
 
         return (
-            <div>
-            <h2>Register</h2>
-            {
-                confirmReg ? 
-                <h4 style={{color: "green"}}>{confirmReg}</h4>
-                : null
-            }
-            <form onSubmit={register}>
-                <div>
-                <label>Username</label>
-                {
-                    errs.username ? 
-                    <span className="error-text">{ errs.username.message }</span>
-                    : null
-                }
-                <input
-                    type="text"
-                    name="username"
-                    value={user.username}
-                    onChange={(e) => handleChange(e)}
-                />
-                </div>
-                <div>
-                <label>Email</label>
-                {
-                    errs.email? 
-                    <span className="error-text">{ errs.email.message }</span>
-                    : null
-                }
-                <input
-                    type="email"
-                    name="email"
-                    value={user.email}
-                    onChange={ handleChange }
-                />
-                </div>
-                <div>
-                <label>Password</label>
-                {
-                    errs.password ? 
-                    <span className="error-text">{ errs.password.message }</span>
-                    : null
-                }
-                <input
-                    type="password"
-                    name="password"
-                    value={user.password}
-                    onChange={ handleChange }
-                />
-                </div>
-                <div>
-                <label>Confirm Password</label>
-                {
-                    errs.confirmPassword? 
-                    <span className="error-text">{ errs.confirmPassword.message }</span>
-                    : null
-                }
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    value={user.confirmPassword}
-                    onChange={ handleChange }
-                />
-                </div>
-                <div className="center">
-                <button 
-                    type="submit"
-                >Register Me</button>
-                </div>
+
+            <Box style={{
+                width: 600,
+                margin: 'auto'
+            }}>
+
+            <form 
+            
+            onSubmit={register}>
+                
+            
+            
+
+
+                    <Field>
+                    <Label>Username</Label>
+                    {
+                        ! errs.username ?
+                        <Control>
+                        <Input
+                        type="text"
+                        name="username"
+                        value={user.username}
+                        placeholder="username"
+                        onChange={(e) => handleChange(e)}
+                        />
+
+                        <Icon align="left">
+                            <ion-icon name="person-circle-outline"></ion-icon>                        </Icon>
+                        </Control>
+
+                        : 
+                        <Control>
+                        <Input
+                        color="danger"
+                        type="text"
+                        name="username"
+                        value={user.username}
+                        placeholder="username"
+                        onChange={(e) => handleChange(e)}
+                        />
+                        <Icon align="left">
+                            <ion-icon name="person-circle-outline"></ion-icon>                        </Icon>
+                        <Form.Help color="danger">{ errs.username.message }</Form.Help>
+                        </Control>
+
+
+                    }
+                    </Field>
+
+
+
+                    <Field>
+                    <Label>Email</Label>
+                    {
+                        ! errs.email ?
+                        <Control>
+                        <Input
+                        type="email"
+                        name="email"
+                        value={user.email}
+                        placeholder="email"
+                        onChange={ handleChange }
+                        />
+
+                        <Icon align="left">
+                            <ion-icon name="mail-outline"></ion-icon>                        
+                        </Icon>
+                        </Control>
+
+                        : 
+                        <Control>
+                        <Input
+                        color="danger"
+                        type="email"
+                        name="email"
+                        value={user.email}
+                        placeholder="email"
+                        onChange={ handleChange }
+                        />
+                        <Icon align="left">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </Icon>
+                        <Form.Help color="danger">{ errs.email.message }</Form.Help>
+                        </Control>
+
+
+                    }
+                    </Field>
+
+
+                    <Field>
+                    <Label>Password</Label>
+                    {
+                        ! errs.password ?
+                        <Control>
+                        <Input
+                        type="password"
+                        name="password"
+                        value={user.password}
+                        placeholder="password"
+                        onChange={ handleChange }
+                        />
+
+                        <Icon align="left">
+                            <ion-icon name="lock-closed-outline"></ion-icon>                        
+                        </Icon>
+                        </Control>
+
+                        : 
+                        <Control>
+                        <Input
+                        color="danger"
+                        type="password"
+                        name="password"
+                        value={user.password}
+                        placeholder="password"
+                        onChange={ handleChange }
+                        />
+                        <Icon align="left">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </Icon>
+                        <Form.Help color="danger">{ errs.password.message }</Form.Help>
+                        </Control>
+
+
+                    }
+                    </Field>
+
+
+
+                    <Field>
+                    <Label>Confirm Password</Label>
+                    {
+                        ! errs.confirmPassword ?
+                        <Control>
+                        <Input
+                        type="password"
+                        name="confirmPassword"
+                        value={user.confirmPassword}
+                        placeholder="password"
+                        onChange={ handleChange }
+                        />
+
+                        <Icon align="left">
+                            <ion-icon name="lock-closed-outline"></ion-icon>                        
+                        </Icon>
+                        </Control>
+
+                        : 
+                        <Control>
+                        <Input
+                        color="danger"
+                        type="password"
+                        name="confirmPassword"
+                        value={user.confirmPassword}
+                        placeholder="password"
+                        />
+                        <Icon align="left">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </Icon>
+                        <Form.Help color="danger">{ errs.confirmPassword.message }</Form.Help>
+                        </Control>
+
+
+                    }
+                    </Field>
+
+
+                    <Field kind="group">
+                        <Control>
+                            <Button
+                                type="submit"
+                                color="success"
+                            >Register
+                            </Button>
+                            
+                        </Control>
+                        {
+                            confirmReg ? 
+                            <h4 style={{color: "green", marginTop: "10px"}}>{confirmReg}</h4>
+                            : null
+                        }
+                    </Field>
+
+
+
             </form>
-            </div>
+            </Box>
+
         );
 };
 
