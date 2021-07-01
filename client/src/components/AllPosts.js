@@ -27,9 +27,12 @@ const AllPosts = (props) => {
             })
     }, [])
 
+ 
+
+    
+
     return (
         <div>
-            <NavBar />
             <div
                 style={{
                 display: "flex",
@@ -48,10 +51,16 @@ const AllPosts = (props) => {
                         flexDirection: "column"
                         }}
                     >
+                        {   
+                            allPosts.length === 0  ?
+                            <NavBar  />
+                            : null
+                        }
                         {
                             allPosts.map((post, index) => (
 
-                                <Box className="content" key={index} >                          
+                                <Box
+                                className="content" key={index} >                          
                                     <h6 style={{margin: "0px"}}>
                                         {post.blogName}
                                     </h6>

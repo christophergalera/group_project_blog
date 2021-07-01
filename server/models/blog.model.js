@@ -4,11 +4,12 @@ const BlogSchema = new mongoose.Schema({
     // blog name
     blogName: {
         type: String,
-        required: [true, 'Blog must have a name']
+        required: [true, 'Post must have a name']
     },
     // blog body
     blogBody: {
-        type: String
+        type: String,
+        required: [true, 'Body of post cannot be empty!']
     },
  
     // createdBy: {

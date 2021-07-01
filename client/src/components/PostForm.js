@@ -1,11 +1,13 @@
 import React from 'react';
 import 'bulma/css/bulma.min.css';
-import { Form, Icon, Button, Box, Message} from 'react-bulma-components';
+import { Form, Icon, Button, Box, Message, Columns} from 'react-bulma-components';
+import axios from 'axios';
 import {navigate} from '@reach/router';
 
 const PostForm = (props) =>{
 const { Input, Field, Control, Label, Help, Textarea } = Form;
-const {post, setPost, errors, submitHandler, buttonLabel } = props;
+const {Group} = Button;
+const {post, setPost, errors, submitHandler, buttonLabel, deleteThis } = props;
     
     const inputChange =(e)=>{
         console.log("e.target.name" + e.target.name);
@@ -15,11 +17,27 @@ const {post, setPost, errors, submitHandler, buttonLabel } = props;
         newStateObject[e.target.name] = e.target.value; 
         setPost(newStateObject); //setting the state
     }
+    
+
+    const waitNav = () => {
+        navigate("/blog/all_posts")
+    }
    
 
     return(
         <div>
-            <Box>
+            <Columns
+                centered="true"
+                style={{marginTop: "13%"}}
+            >
+            
+
+            <Box
+                style={{
+                width: 800,
+                margin: 'auto'
+            }}
+            >
             <form onSubmit={submitHandler}>
                 <Field>
                     <Label>Blog Name</Label>
@@ -77,19 +95,32 @@ const {post, setPost, errors, submitHandler, buttonLabel } = props;
 
                 </Field>
 
+               <Group>
                 <Field kind="group">
                         <Control>
                             <Button
+                                style={{marginRight: "6px",
+                                marginTop: "3px"}}
+                                size="small"
                                 type="submit"
                                 color="success"
-                                onClick={ () => navigate("/all_posts")}
                             >{buttonLabel}
                             </Button>
                         </Control>
                 </Field>
+                    <Control>
+                       <Button
+                            color="danger"
+                            size="small"
+                            onClick={waitNav}
+                            style={{marginTop: "-8.5px"}}
+                        >Back
+                        </Button>
+                    </Control>
+                </Group>
             </form>
             </Box>
-
+        </Columns>
         </div>
     )
 }

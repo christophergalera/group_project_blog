@@ -21,6 +21,8 @@ useEffect(() =>{
         });
 },[]);
 
+
+
 const submitHandler = (e) =>    {
     e.preventDefault();
     axios.put('http://localhost:8000/api/blog/'+ props.id, post)
@@ -35,9 +37,10 @@ const submitHandler = (e) =>    {
         })
 }
 
+
+
 return(
     <div>
-        <h1>Edit Post</h1>
         <PostForm 
             post = {post}
             setPost = {setPost }
