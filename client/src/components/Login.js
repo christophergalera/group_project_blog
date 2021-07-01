@@ -26,7 +26,7 @@ const Login = () => {
         })
         .catch(err => {
             console.log(err.response);
-            // setErrorMessage(err.response.data.message);
+            setErrorMessage(err.response.data.message);
         });
     };
 
@@ -74,8 +74,6 @@ const Login = () => {
                     <ion-icon name="lock-closed-outline"></ion-icon>
                     </Icon>
                 </Control>
-
-                
             
         </Field>
         <Button.Group>

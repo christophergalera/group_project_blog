@@ -20,14 +20,14 @@ const UserSchema = new mongoose.Schema({
     }
     }, { timestamps: true});
 
-
+    // Return herer do we need _??
     UserSchema.virtual("confirmPassword")
-    .get(() => this._confirmPassword)
-    .set((value) => this._confirmPassword = value);
+    .get(() => this.confirmPassword)
+    .set((value) => this.confirmPassword = value);
 
 
     UserSchema.pre("validate", function(next) {
-    if(this.password !== this._confirmPassword) {
+    if(this.password !== this.confirmPassword) {
         this.invalidate("confirmPassword", "Passwords do not match");
     }
     next();
