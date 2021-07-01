@@ -1,30 +1,23 @@
-/* 
-************************************************************************************************************************
-
-Everything here is a proposal not really set in stone, routes were intentionally left blank i can add them in if youd like but since its a group project i wanted to make sure everyone has their area to shine in. with that said; THIS IS AN EXTREMELY BASIC set of instructions. This will display all posts by mapping through them similar to how Kevin Udink showed us in MERN. I tried to leave decent comments so my heiroglyphics can be deciphered. 
-
-************************************************************************************************************************
-*/
-
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import QuickNav from './QuickNav';
+import NavBar from './NavBar';
+import 'bulma/css/bulma.min.css';
+import { Box, Card, Heading, Breadcrumb } from 'react-bulma-components';
 import axios from "axios";
-import {Link} from '@reach/router';
+import { Link, navigate } from '@reach/router';
+import EditPost from './EditPost';
 
-// props isnt explicitly used but  i passed it in just in case it'd to use it later
 const AllPosts = (props) => {
-
-// setting allPosts into state.
+    const { Header, Content, Image, Footer } = Card;
     const [allPosts, setAllPosts] = useState([]);
 
-// method for axios call/fetch getting all posts will want to pull this from a route
-    const getAllPosts = (e) =>{
-        // axios is allowing us to access our database 
-        axios.get('http://localhost:8000/api/blog/all',{ 
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/blog/all', {
             withCredentials: true
-            }
-            )
-        // has to return a promise
-            .then((res)=>{
+        }
+        )
+            .then((res) => {
                 console.log(res.data);
                 setAllPosts(res.data);
                 console.log("Promise in getAllPosts successful")
@@ -32,36 +25,68 @@ const AllPosts = (props) => {
             .catch((err) => {
                 console.log(err, 'error in getAllPosts in allPosts.js')
             })
-    }
+    }, [])
 
-    // more code here if needed
+ 
 
-    return(
-        //loops through posts using map
-        //classnames are intentionally left blank
+    
+
+    return (
         <div>
-            <h1 className=""> TITLE GOES HERE </h1>
+            <div
+                style={{
+                display: "flex",
+                justifyContent: "center"
+                }}>
 
-        {/* button to get all posts using onClick events */}
-            <button className=" " onClick={ (e) => getAllPosts(e)}> Get Posts </button>
+                <div 
+                    style={{
+                    width: "1024px",
+                    margin: 'auto',
+                    height: 'auto'
+                }}>
+                    <Box
+                        style={{
+                        display: "flex",
+                        flexDirection: "column"
+                        }}
+                    >
+                        {   
+                            allPosts.length === 0  ?
+                            <NavBar  />
+                            : null
+                        }
+                        {
+                            allPosts.map((post, index) => (
 
-        {/* this will call from the routes to create a new post */}
-            <Link to="/blog/new_post" >
-                <button className=""> ADD_POST_BUTON </button>
-            </Link>
+                                <Box
+                                className="content" key={index} >                          
+                                    <h6 style={{margin: "0px"}}>
+                                        {post.blogName}
+                                    </h6>
+                                    <p style={{fontSize: "12px"}} subtitle size={40}> 
+                                        {(new Date(post.createdAt)).toLocaleDateString("en-us")}
+                                    </p>
 
-        {/* mapping through to display all entries */}
-            {
-                allPosts.map((post, index) => (
-                    <div className="all" key={ index} >
-                    <Link to={`/blog/${post._id}`}>
-                        <h3>{ post.blogBody } <br/>
-                        {/* this will display the date added or updated depending on how you wire it */}
-                        <p>added on: { (new Date(post.createdAt)).toLocaleDateString("en-us")}</p> </h3>
-                    </Link>
-                    </div>
-                ))
-            }
+                                    <div style={{margin: "0px"}}>
+
+                                        <p style={{margin: "0px"}} >
+                                        {post.blogBody} 
+                                        </p>
+                                        <br />
+
+                                    </div>
+                                
+                                    <div style={{marginLeft: "80%"}}>
+                                        <QuickNav postId={post._id}/>
+                                    </div>
+
+                                </Box>
+                            ))
+                        }
+                    </Box>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,55 +1,126 @@
 import React from 'react';
+import 'bulma/css/bulma.min.css';
+import { Form, Icon, Button, Box, Message, Columns} from 'react-bulma-components';
+import axios from 'axios';
 import {navigate} from '@reach/router';
 
 const PostForm = (props) =>{
-    //props will be passed down to child components if you dont you will not get your validation errors.
-    // props allow for passing things in between files 
-const {post, setPost, errors, submitHandler, buttonLabel } = props;
+const { Input, Field, Control, Label, Help, Textarea } = Form;
+const {Group} = Button;
+const {post, setPost, errors, submitHandler, buttonLabel, deleteThis } = props;
     
-    //this works for all keys inside of the state object
     const inputChange =(e)=>{
         console.log("e.target.name" + e.target.name);
         console.log("e.target.value" + e.target.value);
-        // updating the state of our object with the information given above usting the spread operator
-        let newStateObject ={...post}; // get a copy of current state
-        newStateObject[e.target.name] = e.target.value; // new posts this.state.
+
+        let newStateObject ={...post}; 
+        newStateObject[e.target.name] = e.target.value; 
         setPost(newStateObject); //setting the state
     }
-    // make sure your input matches the names of your keys
-    // use dot operator to reference, vs code will sometimes give suggestions
+    
 
+    const waitNav = () => {
+        navigate("/blog/all_posts")
+    }
+   
 
     return(
         <div>
-            {/* {submit handler is passed from EditPost.js} */}
-            <form onSubmit={submitHandler}>
-                <div>
-                    <label>Blog Name</label>
-                    {/* shows an error if their is one */}
-                    {
-                        errors.blogName ? 
-                            <p className="validationErrors">{errors.blogPost.message}</p>
-                            : null
-                    }
-                    <input type='text' name='blogName' value={post.blogName} onChange={(e) => inputChange(e)} />
-                </div>
+            <Columns
+                centered="true"
+                style={{marginTop: "13%"}}
+            >
+            
 
-                <div>
-                    <label>Blog Body </label>
-                    
+            <Box
+                style={{
+                width: 800,
+                margin: 'auto'
+            }}
+            >
+            <form onSubmit={submitHandler}>
+                <Field>
+                    <Label>Blog Name</Label>
                     {
-                        errors.blogBody ? 
-                            <p className="validationErrors">{errors.blogBody.message}</p>
-                            : null
+                        ! errors.blogName ?
+                        <Control>
+                        <Input 
+                            placeholder="blog name"
+                            type='text' 
+                            name='blogName' 
+                            value={post.blogName} 
+                            onChange={(e) => inputChange(e)} 
+                        />
+                        </Control>
+
+                        : 
+                            <Control>
+                            <Input 
+                                placeholder="blog name"
+                                type='text'
+                                color='danger'
+                                name='blogName' 
+                                value={post.blogName} 
+                                onChange={(e) => inputChange(e)} 
+                            />
+                            <Help color="danger">{errors.blogPost.message}</Help>
+                            </Control>
                     }
-                    <input type='text' name='blogBody' value={post.blogBody } onChange={(e) => inputChange(e)} />
-                </div>
+                </Field>
                 
-                {/* submit btton*/}
-                <button>{ buttonLabel }</button>
-                {/* we have to use the anonymous function below to wait for the onclick event */}
-                <button onClick={ () => navigate("/all_posts")} className="cancelBtn">Cancel</button>
+                <Field>
+                    <Label>Blog Body </Label>
+                    {
+                        ! errors.blogBody ?
+                        <Control>
+                        <Textarea 
+                            name='blogBody'
+                            placeholder={`${post.blogBody}`} 
+                            value={post.blogBody} 
+                            onChange={(e) => inputChange(e)} 
+                        />
+                        </Control>
+                        :
+                            <Control>
+                            <Textarea
+                                placeholder={`${post.blogBody}`}
+                                color="danger"
+                                name='blogBody' 
+                                value={post.blogBody} 
+                                onChange={(e) => inputChange(e)} 
+                            />
+                            <Help>{errors.blogBody.message}</Help>
+                            </Control>
+                    }
+
+                </Field>
+
+               <Group>
+                <Field kind="group">
+                        <Control>
+                            <Button
+                                style={{marginRight: "6px",
+                                marginTop: "3px"}}
+                                size="small"
+                                type="submit"
+                                color="success"
+                            >{buttonLabel}
+                            </Button>
+                        </Control>
+                </Field>
+                    <Control>
+                       <Button
+                            color="danger"
+                            size="small"
+                            onClick={waitNav}
+                            style={{marginTop: "-8.5px"}}
+                        >Back
+                        </Button>
+                    </Control>
+                </Group>
             </form>
+            </Box>
+        </Columns>
         </div>
     )
 }
