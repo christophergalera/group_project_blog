@@ -5,6 +5,8 @@ Here are the required dependencies to test it out
 /// Client
  
 npm i @reach/router --legacy-peer-deps 
+
+
 npm i bulma react-bulma-components axios 
 
 /// Server
