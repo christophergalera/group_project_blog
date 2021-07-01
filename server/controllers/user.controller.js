@@ -59,7 +59,7 @@ module.exports = {
                         // userId: userRecord._id,
                     })
                 } else {
-                    res.status(400).json({ message: "password didn't match"});
+                    res.status(400).json({ message: "Incorrect Password"});
                 }
                 })
             }
